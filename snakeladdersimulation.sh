@@ -5,3 +5,7 @@ echo "Welcome to the snake and ladder simulator program"
 
 #variables
 startPosition=0
+
+#The Player rolls the die to get a number between 1 to 6(UC2).
+rollDie=$(($RANDOM % 6 + 1))
+echo $rollDie
