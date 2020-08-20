@@ -5,32 +5,38 @@ echo -e "Welcome to the snake and ladder simulator program \n"
 
 #constant
 startPosition=0
-
-#The Player rolls the die to get a number between 1 to 6(UC2).
-rollDie=$(($RANDOM % 6 + 1))
-
-#The Player checks for a Option For No Play, Ladder or Snake.(UC3).
-checkOption=$(($RANDOM % 3))
 playerPosition=$startPosition
 
-if [[ $checkOption -eq 0 ]]
-then
-	echo -e "No Play Option \n"
-	playerPosition=$playerPosition
-elif [[ $checkOption -eq 1 ]]
-then
-	echo -e "Ladder Option \n"
-	playerPosition=$((playerPosition + rollDie))
-elif [[ $checkOption -eq 2 ]]
-then
-	echo -e "Snake Option \n"
-	currentPosition=$(($playerPosition - $rollDie))
-	if [ $currentPosition -gt 0 ]
+#Repeat till the Player reaches the winning position 100. 
+while [ $playerPosition -le 100 ]
+do
+	#The Player rolls the die to get a number between 1 to 6(UC2).
+	rollDie=$(($RANDOM % 6 + 1))
+
+	#The Player checks for a Option For No Play, Ladder or Snake.(UC3).
+	checkOption=$(($RANDOM % 3))
+
+	if [[ $checkOption -eq 0 ]]
 	then
-		playerPosition=$((playerPosition - rollDie))
-	else
+		#No Play Option
 		playerPosition=$playerPosition
+		echo "Player Position With No Play Option : $playerPosition"
+	elif [[ $checkOption -eq 1 ]]
+	then
+		#Ladder Option
+		playerPosition=$((playerPosition + rollDie))
+		echo "Player Position With Ladder Option And Dice With $rollDie : $playerPosition"
+	elif [[ $checkOption -eq 2 ]]
+	then
+		#Snake Option
+		currentPosition=$(($playerPosition - $rollDie))
+		if [ $currentPosition -gt 0 ]
+		then
+			playerPosition=$((playerPosition - rollDie))
+		else
+			playerPosition=$playerPosition
+		fi
+		echo "Player Position With Snake Option And Dice With $rollDie :  $playerPosition"
 	fi
-fi
-echo "Die Rolled With Value of : "$rollDie
-echo "The Player Current Position After Die Rolled : "$playerPosition
+done
+echo "Player Reached The Winning Position"
