@@ -5,6 +5,7 @@ echo -e "Welcome to the snake and ladder simulator program \n"
 
 #constant
 startPosition=0
+dieRolled=0
 playerPosition=$startPosition
 
 #Ensure the player gets to exact winning position 100(UC5).
@@ -17,7 +18,10 @@ function  startGame(){
 
 		#The Player checks for a Option For No Play, Ladder or Snake.(UC3).
 		checkOption=$(($RANDOM % 3))
-
+		
+		#No. of times the dice played to win the game (UC6).
+		dieRolled=$((dieRolled+1))
+		
 		if [[ $checkOption -eq 0 ]]
 		then
 			#No Play Option
@@ -31,7 +35,7 @@ function  startGame(){
 			else
 				#Ladder Option
 				playerPosition=$((playerPosition + rollDie))
-				echo "Current Player Position With Ladder Option And Dice With $rollDie : $playerPosition"
+				echo "Player Position With Ladder Option And Dice With Value $rollDie  : $playerPosition"
 			fi
 		elif [[ $checkOption -eq 2 ]]
 		then
@@ -43,9 +47,10 @@ function  startGame(){
 			else
 				playerPosition=$playerPosition
 			fi
-			echo "Current Player Position With Snake Option And Dice With $rollDie : $playerPosition"
+			echo "Player Position With Snake Option And Dice With Value $rollDie : $playerPosition"
 		fi
 	done
+	echo "No. Of Times Dice Rolls To Win The Game : "$dieRolled
 	echo "Player Reached The Winning Position :"$playerPosition
 }
 startGame
